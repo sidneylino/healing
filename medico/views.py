@@ -5,8 +5,11 @@ from django.contrib import messages
 from django.contrib.messages import constants
 from datetime import datetime, timedelta
 from paciente.models import Consulta, Documento
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
+@login_required
 def cadastro_medico(request):
 
     if is_medico(request.user):
@@ -57,7 +60,7 @@ def cadastro_medico(request):
         return redirect('/medicos/abrir_horario')
 
 
-
+@login_required
 def abrir_horario(request):
     if not is_medico(request.user):
         messages.add_message(request, constants.WARNING, 'Somente médicos podem abrir horário')
@@ -86,7 +89,7 @@ def abrir_horario(request):
         messages.add_message(request, constants.SUCCESS, 'Horario cadastrado com sucesso. ')
         return redirect('/medicos/abrir_horario')
     
-
+@login_required
 def consultas_medico(request):
     if not is_medico(request.user):
         messages.add_message(request, constants.WARNING, 'Somente médicos podem abrir horário')
@@ -99,7 +102,7 @@ def consultas_medico(request):
     print(consultas_hoje.values('id'))
     return render(request, 'consultas_medico.html', {'consultas_hoje': consultas_hoje, 'consultas_restantes': consultas_restantes, 'is_medico': is_medico(request.user)})
 
-
+@login_required
 def consulta_area_medico(request, id_consulta):
     if not is_medico(request.user):
         messages.add_message(request, constants.WARNING, 'Somente médicos podem abrir horário')
@@ -125,7 +128,7 @@ def consulta_area_medico(request, id_consulta):
         consulta.save()
         messages.add_message(request, constants.SUCCESS, 'Consulta inicializada')
         return redirect(f'/medicos/consulta_area_medico/{id_consulta}')
-
+@login_required
 def finalizar_consulta(request, id_consulta):
     if not is_medico(request.user):
         messages.add_message(request, constants.WARNING, 'Somente médicos podem abrir horário')
@@ -140,7 +143,7 @@ def finalizar_consulta(request, id_consulta):
     consulta.save()
     return redirect(f'/medicos/consulta_area_medico/{id_consulta}')
 
-
+@login_required
 def add_documento(request, id_consulta):
     if not is_medico(request.user):
         messages.add_message(request, constants.WARNING, 'Somente médicos podem acessar essa página.')
