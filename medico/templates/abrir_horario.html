@@ -13,7 +13,7 @@
         <br><br>
         <div class="row">
             <div class="col-md-8">
-                {% if dados_medicos.foto.url %}
+                {% if dados_medicos.foto %}
                     <img src="{{ dados_medicos.foto.url }}" class="foto-perfil" alt="Foto do médico">
                 {% else %}
                     <img src="{% static 'geral/img/logo.png' %}" class="foto-perfil" alt="Imagem padrão">
