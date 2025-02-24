@@ -13,8 +13,11 @@
         <br><br>
         <div class="row">
             <div class="col-md-8">
-
-                <img src="{{dados_medicos.foto.url}}"  class="foto-perfil" alt="">
+                {% if dados_medicos.foto.url %}
+                    <img src="{{ dados_medicos.foto.url }}" class="foto-perfil" alt="Foto do médico">
+                {% else %}
+                    <img src="{% static 'geral/img/logo.png' %}" class="foto-perfil" alt="Imagem padrão">
+                {% endif %}
                 <label style="margin-left: 30px; font-size: 25px" class="p-bold">Olá, <span class="color-dark">{{request.user.username}}</span></label>
                 <br>
                 {% if messages %}

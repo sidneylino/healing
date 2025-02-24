@@ -39,7 +39,13 @@
                     <div class="card-medicos shadow-main-color">
                         <div class="row">
 
-                            <div class="col-md-3"><img src="{{medico.foto.url}}" class="foto-perfil-card" alt=""></div>
+                            <div class="col-md-3">    
+                                {% if medico.foto %}
+                                    <img src="{{ medico.foto.url }}" class="foto-perfil-card" alt="Foto do médico">
+                                {% else %}
+                                    <img src="{% static 'geral/img/logo.png' %}" class="foto-perfil-card" alt="Imagem padrão">
+                                {% endif %}
+                            </div>
                             <div class="col-md">
                                 <p style="font-size: 20px" class="p-bold">Dr(a). {{medico.nome}} <i class="bi bi-patch-check-fill icon-main"></i></p>
                                 <p>{{medico.descricao}}</p>
